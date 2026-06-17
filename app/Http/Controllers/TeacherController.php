@@ -97,7 +97,7 @@ class TeacherController extends Controller
     public function reviewResult(Request $request, \App\Models\Exam $exam, \App\Models\Result $result)
     {
         $exam->load(['subject', 'questions']);
-        if ($request->user()->role !== 'guru' || $exam->subject->user_id !== $request->user()->id) {
+        if ($request->user()->role !== 'guru' || "{$exam->subject->user_id}" !== "{$request->user()->id}") {
             abort(403, 'Unauthorized action.');
         }
 
@@ -140,7 +140,7 @@ class TeacherController extends Controller
     public function exportResults(Request $request, \App\Models\Exam $exam)
     {
         $exam->load('subject');
-        if ($request->user()->role !== 'guru' || $exam->subject->user_id !== $request->user()->id) {
+        if ($request->user()->role !== 'guru' || "{$exam->subject->user_id}" !== "{$request->user()->id}") {
             abort(403, 'Unauthorized action.');
         }
 
