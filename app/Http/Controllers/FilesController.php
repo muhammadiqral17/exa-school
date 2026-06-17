@@ -24,4 +24,26 @@ class FilesController extends Controller
 
         return response()->file($path);
     }
+
+    /**
+     * Serve question images directly from storage.
+     *
+     * @param string $filename
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+    public function handleQuestionFile($filename)
+    {
+        // Prevent directory traversal attacks
+        if (str_contains($filename, '..')) {
+            abort(404);
+        }
+
+        $path = storage_path('app/public/questions/' . $filename);
+
+        if (!File::exists($path)) {
+            abort(404);
+        }
+
+        return response()->file($path);
+    }
 }

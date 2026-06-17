@@ -1,1 +1,0 @@
-import{_ as o}from"./_plugin-vue_export-helper-DlAUqK2U.js";import{c,o as t}from"./app-DVq06yXh.js";const e={},s={src:"/images/mts.png",alt:"School Logo",class:"h-full w-auto object-contain"};function n(r,a){return t(),c("img",s)}const l=o(e,[["render",n]]);export{l as A};

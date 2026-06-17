@@ -354,7 +354,7 @@ const getOptions = (question) => {
                                 {{ q.type === 'pg' ? 'Pilihan Ganda' : 'Essay' }}
                             </span>
                             <div v-if="q.image" class="mb-4 flex flex-wrap gap-4">
-                                <img v-for="(img, iIdx) in q.image.split(',')" :key="'q_img_'+iIdx" :src="img.trim().startsWith('http') ? img.trim() : '/storage/' + img.trim()" alt="Gambar Soal" class="max-h-64 rounded-xl object-contain border border-gray-200 shadow-sm" />
+                                <img v-for="(img, iIdx) in q.image.split(',')" :key="'q_img_'+iIdx" :src="img.trim().startsWith('http') ? img.trim() : (img.trim().startsWith('questions/') ? '/gambarsoal/' + img.trim().substring(10) : '/storage/' + img.trim())" alt="Gambar Soal" class="max-h-64 rounded-xl object-contain border border-gray-200 shadow-sm" />
                             </div>
                             <p class="text-gray-800 font-semibold text-base leading-relaxed mb-6">{{ q.question_text }}</p>
 
@@ -370,7 +370,7 @@ const getOptions = (question) => {
                                     </div>
                                     <div class="flex-1 flex flex-col gap-2">
                                         <span class="text-gray-700 font-medium">{{ optText }}</span>
-                                        <img v-if="q.option_images && q.option_images[oIdx]" :src="q.option_images[oIdx].startsWith('http') ? q.option_images[oIdx] : '/storage/' + q.option_images[oIdx]" class="max-h-32 object-contain rounded-lg border border-gray-100 shadow-sm self-start" />
+                                        <img v-if="q.option_images && q.option_images[oIdx]" :src="q.option_images[oIdx].startsWith('http') ? q.option_images[oIdx] : (q.option_images[oIdx].startsWith('questions/') ? '/gambarsoal/' + q.option_images[oIdx].substring(10) : '/storage/' + q.option_images[oIdx])" class="max-h-32 object-contain rounded-lg border border-gray-100 shadow-sm self-start" />
                                     </div>
                                 </label>
                             </div>

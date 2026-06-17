@@ -94,5 +94,6 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/foto-profile/{filename}', [\App\Http\Controllers\FilesController::class, 'handleFile'])->name('profile.photo');
+Route::get('/gambarsoal/{filename}', [\App\Http\Controllers\FilesController::class, 'handleQuestionFile'])->where('filename', '.*')->name('questions.file');
 
 require __DIR__.'/auth.php';

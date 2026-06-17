@@ -433,7 +433,7 @@ const parsedTeacherNotes = computed(() => {
                         </div>
 
                         <div v-if="question.image" class="mb-4 flex flex-wrap gap-4">
-                            <img v-for="(img, iIdx) in question.image.split(',')" :key="'q_img_'+iIdx" :src="img.trim().startsWith('http') ? img.trim() : '/storage/' + img.trim()" alt="Gambar Soal" class="max-h-64 rounded-xl object-contain border border-gray-200 shadow-sm" />
+                             <img v-for="(img, iIdx) in question.image.split(',')" :key="'q_img_'+iIdx" :src="img.trim().startsWith('http') ? img.trim() : (img.trim().startsWith('questions/') ? '/gambarsoal/' + img.trim().substring(10) : '/storage/' + img.trim())" alt="Gambar Soal" class="max-h-64 rounded-xl object-contain border border-gray-200 shadow-sm" />
                         </div>
                         <p class="text-gray-800 font-medium whitespace-pre-wrap mb-6">{{ question.question_text }}</p>
 
@@ -445,7 +445,7 @@ const parsedTeacherNotes = computed(() => {
                                     <span class="font-black uppercase shrink-0">{{ formatAnswerLabel(getStudentAnswer(question.id)) }}.</span> 
                                     <div class="flex flex-col gap-2">
                                         <span>{{ getOptionText(question, getStudentAnswer(question.id)) }}</span>
-                                        <img v-if="question.option_images && question.option_images[getStudentAnswer(question.id)]" :src="question.option_images[getStudentAnswer(question.id)].startsWith('http') ? question.option_images[getStudentAnswer(question.id)] : '/storage/' + question.option_images[getStudentAnswer(question.id)]" class="max-h-24 object-contain rounded-lg border border-gray-200" />
+                                         <img v-if="question.option_images && question.option_images[getStudentAnswer(question.id)]" :src="question.option_images[getStudentAnswer(question.id)].startsWith('http') ? question.option_images[getStudentAnswer(question.id)] : (question.option_images[getStudentAnswer(question.id)].startsWith('questions/') ? '/gambarsoal/' + question.option_images[getStudentAnswer(question.id)].substring(10) : '/storage/' + question.option_images[getStudentAnswer(question.id)])" class="max-h-24 object-contain rounded-lg border border-gray-200" />
                                     </div>
                                 </div>
                             </div>
@@ -457,7 +457,7 @@ const parsedTeacherNotes = computed(() => {
                                         <span>{{ getOptionText(question, question.answer) }}</span>
                                         <div v-if="question.option_images" class="flex flex-wrap gap-2">
                                             <template v-for="idx in getAnswerIndicesArray(question.answer)" :key="idx">
-                                                <img v-if="question.option_images[idx]" :src="question.option_images[idx].startsWith('http') ? question.option_images[idx] : '/storage/' + question.option_images[idx]" class="max-h-24 object-contain rounded-lg border border-green-200" />
+                                                 <img v-if="question.option_images[idx]" :src="question.option_images[idx].startsWith('http') ? question.option_images[idx] : (question.option_images[idx].startsWith('questions/') ? '/gambarsoal/' + question.option_images[idx].substring(10) : '/storage/' + question.option_images[idx])" class="max-h-24 object-contain rounded-lg border border-green-200" />
                                             </template>
                                         </div>
                                     </div>
