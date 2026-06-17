@@ -77,10 +77,7 @@ class TeacherController extends Controller
         $exam->load('subject');
         if ($request->user()->role !== 'guru' || $exam->subject->user_id !== $request->user()->id) {
             return response()->json([
-                "data" => $request->user(),
-                "examp" => $exam,
-                "user_id" => $request->user()->id,
-                "exam_user_id" => $exam->subject->user_id,
+              
                 "status1" => $request->user()->role !== 'guru' ,
                 "status2" => $exam->subject->user_id !== $request->user()->id
             ]);
