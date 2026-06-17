@@ -40,11 +40,8 @@ class TeacherController extends Controller
     public function exams(Request $request)
     {
         if ($request->user()->role !== 'guru') {
-            return response()->json([
-                "user" => $request->user(),
-                "status" => $request->user()->role !== 'guru'
-            ]);
-            //abort(403, 'Unauthorized action.');
+           
+            abort(403, 'Unauthorized action.');
         }
 
         $subjects = $request->user()->subjects()
@@ -64,7 +61,8 @@ class TeacherController extends Controller
     public function examResults(Request $request, \App\Models\Exam $exam)
     {
         $exam->load('subject');
-        if ($request->user()->role !== 'guru' || $exam->subject->user_id !== $request->user()->id) {
+        if ($request->user()->role !== 'guru' || "{$exam->subject->user_id}" !== "{$request->user()->id}") {
+           
             abort(403, 'Unauthorized action.');
         }
 
