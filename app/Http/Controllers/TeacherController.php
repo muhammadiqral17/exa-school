@@ -76,6 +76,10 @@ class TeacherController extends Controller
     {
         $exam->load('subject');
         if ($request->user()->role !== 'guru' || $exam->subject->user_id !== $request->user()->id) {
+            return response()->json([
+                "data" => $request->user(),
+                "examp" => $exam
+            ]);
             abort(403, 'Unauthorized action.');
         }
 
