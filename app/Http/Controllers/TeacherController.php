@@ -40,7 +40,11 @@ class TeacherController extends Controller
     public function exams(Request $request)
     {
         if ($request->user()->role !== 'guru') {
-            abort(403, 'Unauthorized action.');
+            return response()->json([
+                "user" => $request->user(),
+                "status" => $request->user()->role !== 'guru'
+            ]);
+            //abort(403, 'Unauthorized action.');
         }
 
         $subjects = $request->user()->subjects()
@@ -76,14 +80,6 @@ class TeacherController extends Controller
     {
         $exam->load('subject');
         if ($request->user()->role !== 'guru' || "{$exam->subject->user_id}" !== "{$request->user()->id}") {
-            return response()->json([
-                "data" => $request->user(),
-                "examp" => $exam,
-                "user_id" => $request->user()->id,
-                "exam_user_id" => $exam->subject->user_id,
-                "status1" => $request->user()->role !== 'guru' ,
-                "status2" => $exam->subject->user_id !== $request->user()->id
-            ]);
             abort(403, 'Unauthorized action.');
         }
 
@@ -92,7 +88,7 @@ class TeacherController extends Controller
             $is_online = $result->last_activity && \Carbon\Carbon::parse($result->last_activity)->gt(now()->subMinutes(2));
             $result->is_online = $is_online;
             return $result;
-        });
+        });            
 
         return Inertia::render('Teacher/Monitoring', [
             'exam' => $exam,
